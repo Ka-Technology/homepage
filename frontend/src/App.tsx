@@ -7,9 +7,7 @@ function App() {
   return (
     <>
       <div className='w-full h-full'>
-        <div className='absolute w-full'>
         <Navbar />
-        </div>
         <div>
           <LandingPage />
         </div>

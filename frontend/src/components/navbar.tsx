@@ -5,7 +5,7 @@ const Navbar = () => {
   const [theme, toggleTheme] = useTheme();
 
   return (
-    <div className="navbar bg-base-300">
+    <div className="navbar bg-base-300 bg-opacity-75 backdrop-blur fixed top-0 left-0 right-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -33,11 +33,11 @@ const Navbar = () => {
             <li><a>About Us</a></li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">KaTech</a>
-      </div>
+            <div className='text-2xl font-semibold ml-4'>KaTech</div>
+        </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li><a>Services</a></li>
+          <li><a className='text-sm'>Services</a></li>
           <li><a>Products</a></li>
           <li><a>About Us</a></li>
         </ul>
