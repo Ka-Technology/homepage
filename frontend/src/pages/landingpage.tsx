@@ -1,40 +1,78 @@
-import React from 'react';
+"use client";
+import React from "react";
+import { StickyScroll } from "../components/ui/sticky-scroll-reveal";
+
+
+
+const content = [
+  {
+    title: "Collaborative Editing",
+    description:
+      "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
+    content: (
+      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--base-200),var(--emerald-500))] flex items-center justify-center text-white">
+        Collaborative Editing
+      </div>
+    ),
+  },
+  {
+    title: "Real time changes",
+    description:
+      "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
+    content: (
+      <div className="h-full w-full  flex items-center justify-center text-white">
+        Test
+      </div>
+    ),
+  },
+  {
+    title: "Version control",
+    description:
+      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+    content: (
+      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
+        Version control
+      </div>
+    ),
+  },
+  {
+    title: "Running out of content",
+    description:
+      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+    content: (
+      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
+        Running out of content
+      </div>
+    ),
+  },
+];
 
 const LandingPage = () => {
   return (
-    <div>
-      <div className='circlePosition w-[1600px] h-[1400px] bg-[#ff7dad]
-      rounded-[100%] absolute z-1 top-[05%] left-[15%] blur-[105px] opacity-20 animate-move1'>
-      </div>
-      <div className='circlePosition w-[1600px] h-[800px] bg-[#ffa733]
-      rounded-[100%] absolute z-1 top-[5%] left-[0%] blur-[105px] opacity-30 animate-move2'>
-      </div>
-      <div className='circlePosition w-[1200px] h-[600px] bg-[#52ff97]
-      rounded-[100%] absolute z-1 top-[60%] left-[65%] blur-[105px] opacity-30 animate-move3'>
-      </div>
-      <div className='circlePosition w-[900px] h-[700px] bg-[#864aff]
-      rounded-[100%] absolute z-1 top-[50%] left-[5%] blur-[105px] opacity-30 animate-move4'>
-      </div>
-      <div className='circlePosition w-[1200px] h-[800px] bg-[#4aa7ff]
-      rounded-[100%] absolute z-1 top-[10%] left-[45%] blur-[105px] opacity-30 animate-move5'>
-      </div>
-      
+    <div className="min-h-screen flex flex-col">
       <div className="hero min-h-screen bg-base-200">
         <div className="text-center hero-content">
           <div className="max-w-lg">
             <h1 className="mb-5 text-5xl font-bold">
-              Welcome to
-              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent"> KaTech</span>
+              <span className="text-8xl font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+                Ka Technology
+              </span>
             </h1>
-            <p className="mb-5">
-              The next generation of AI powered technology.
-            </p>
+            <p className="mb-5">The next generation of AI powered technology.</p>
             <div className="flex justify-center">
-              <a href="#" className="btn btn-primary">Coming Soon!</a>
+              <a href="#" className="btn bg-katech-red">
+                Coming Soon!
+              </a>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="flex-1">
+        <StickyScroll content={content} />
+      </div>
+
+
 
       <div className="hero bg-base-200">
         <div className="text-center hero-content">
@@ -120,10 +158,10 @@ const LandingPage = () => {
                     className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Database</h2>
-                  <p>Automate your business with the AI Database</p>
+                  <h2 className="card-title">Santosh</h2>
+                  <p>Co-Founder and President of Ka Group</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">See Rates</button>
+                    <button className="btn btn-primary">LinkedIn</button>
                   </div>
                 </div>
               </div>
@@ -136,10 +174,10 @@ const LandingPage = () => {
                     className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Analytics</h2>
-                  <p>Gain insights with AI-powered analytics</p>
+                  <h2 className="card-title">Ken</h2>
+                  <p>Co-Founder and Vice President</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">See Rates</button>
+                    <button className="btn btn-primary">LinkedIn</button>
                   </div>
                 </div>
               </div>
@@ -152,10 +190,10 @@ const LandingPage = () => {
                     className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Support</h2>
-                  <p>24/7 AI-powered customer support</p>
+                  <h2 className="card-title">Peter</h2>
+                  <p>Co-Founder and Lead Software Engineer</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">See Rates</button>
+                    <button className="btn btn-primary">LinkedIn</button>
                   </div>
                 </div>
               </div>
@@ -168,10 +206,10 @@ const LandingPage = () => {
                     className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Support</h2>
-                  <p>24/7 AI-powered customer support</p>
+                  <h2 className="card-title">Andrew</h2>
+                  <p>Co-Founder and Lead Web Developer</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">See Rates</button>
+                    <button className="btn btn-primary">LinkedIn</button>
                   </div>
                 </div>
               </div>

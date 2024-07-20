@@ -30,16 +30,16 @@ const Navbar = () => {
           >
             <li><a>Services</a></li>
             <li><a>Team</a></li>
-            <li><a>Contact Us</a></li>
+            <li><a>Contact</a></li>
           </ul>
         </div>
-            <div className='text-2xl font-semibold ml-4'>KaTech</div>
+            <div className='text-2xl font-semibold ml-4'>Ka Technology</div>
         </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li><a className='text-lg'>Services</a></li>
           <li><a className='text-lg'>Team</a></li>
-          <li><a className='text-lg'>Contact Us</a></li>
+          <li><a className='text-lg'>Contact</a></li>
         </ul>
       </div>
       <div className="navbar-end">
