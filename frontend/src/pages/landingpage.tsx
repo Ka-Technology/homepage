@@ -1,56 +1,9 @@
-"use client";
 import React from "react";
-import { StickyScroll } from "../components/ui/sticky-scroll-reveal";
-
-
-
-const content = [
-  {
-    title: "Collaborative Editing",
-    description:
-      "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
-    content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--base-200),var(--emerald-500))] flex items-center justify-center text-white">
-        Collaborative Editing
-      </div>
-    ),
-  },
-  {
-    title: "Real time changes",
-    description:
-      "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
-    content: (
-      <div className="h-full w-full  flex items-center justify-center text-white">
-        Test
-      </div>
-    ),
-  },
-  {
-    title: "Version control",
-    description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
-    content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
-        Version control
-      </div>
-    ),
-  },
-  {
-    title: "Running out of content",
-    description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
-    content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
-        Running out of content
-      </div>
-    ),
-  },
-];
 
 const LandingPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="hero min-h-screen bg-base-200">
+      <div className="hero min-h-screen">
         <div className="text-center hero-content">
           <div className="max-w-lg">
             <h1 className="mb-5 text-5xl font-bold">
@@ -68,13 +21,7 @@ const LandingPage = () => {
         </div>
       </div>
 
-      <div className="flex-1">
-        <StickyScroll content={content} />
-      </div>
-
-
-
-      <div className="hero bg-base-200">
+      <div id="services" className="hero min-h-screen">
         <div className="text-center hero-content">
           <div className="max-w-5xl mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
@@ -138,7 +85,7 @@ const LandingPage = () => {
         </div>
       </div>
 
-      <div className="hero min-h-screen bg-base-200">
+      <div id="team" className="hero min-h-screen">
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
@@ -147,10 +94,10 @@ const LandingPage = () => {
               </span>
             </h1>
             <p className="mb-5">
-              From the brains of the operations to the developers that make it all happen.
+              The people that made this all possible!
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="card bg-base-100 shadow-xl">
+              <div className="card bg-base-100 shadow-xl teamblock">
                 <figure className="px-45 pt-25">
                   <img
                     src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
@@ -166,7 +113,7 @@ const LandingPage = () => {
                 </div>
               </div>
 
-              <div className="card bg-base-100 shadow-xl">
+              <div className="card bg-base-100 shadow-xl teamblock">
                 <figure className="px-15 pt-15">
                   <img
                     src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
@@ -175,14 +122,14 @@ const LandingPage = () => {
                 </figure>
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">Ken</h2>
-                  <p>Co-Founder and Vice President</p>
+                  <p>Co-Founder and Web Developer</p>
                   <div className="card-actions">
                     <button className="btn btn-primary">LinkedIn</button>
                   </div>
                 </div>
               </div>
 
-              <div className="card bg-base-100 shadow-xl">
+              <div className="card bg-base-100 shadow-xl teamblock">
                 <figure className="px-15 pt-15">
                   <img
                     src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
@@ -191,14 +138,14 @@ const LandingPage = () => {
                 </figure>
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">Peter</h2>
-                  <p>Co-Founder and Lead Software Engineer</p>
+                  <p>Co-Founder and Software Engineer</p>
                   <div className="card-actions">
                     <button className="btn btn-primary">LinkedIn</button>
                   </div>
                 </div>
               </div>
 
-              <div className="card bg-base-100 shadow-xl">
+              <div className="card bg-base-100 shadow-xl teamblock">
                 <figure className="px-15 pt-15">
                   <img
                     src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
@@ -207,7 +154,7 @@ const LandingPage = () => {
                 </figure>
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">Andrew</h2>
-                  <p>Co-Founder and Lead Web Developer</p>
+                  <p>Co-Founder and Web Developer</p>
                   <div className="card-actions">
                     <button className="btn btn-primary">LinkedIn</button>
                   </div>
@@ -218,6 +165,21 @@ const LandingPage = () => {
         </div>
       </div>
 
+      <div id="contact" className="hero min-h-screen">
+        <div className="text-center hero-content">
+          <div className="max-w-max mx-auto px-4">
+            <h1 className="mb-5 text-5xl font-bold">
+              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent"> 
+                Contact Us
+              </span>
+            </h1>
+            <p className="mb-5">
+              Get in touch with us for any inquiries or support!
+            </p>
+            {/* Add your contact form or information here */}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
