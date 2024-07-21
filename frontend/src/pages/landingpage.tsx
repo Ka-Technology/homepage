@@ -174,7 +174,9 @@ const LandingPage = () => {
               </span>
             </h1>
             <p className="mb-5">
-              Get in touch with us for any inquiries or support!
+              Get in touch with us at
+              <span className="font-semibold"> info@ka-tch.com
+              </span>
             </p>
             {/* Add your contact form or information here */}
           </div>
