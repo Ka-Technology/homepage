@@ -33,6 +33,17 @@
   animation: gradient-text 5s ease infinite;
 }
 
+.button-red {
+  background-color: #ff3131;
+  border-color: #ff3131;
+  color: white;
+}
+
+.button-red:hover {
+  background-color: #e02b2b;
+  border-color: #e02b2b;
+}
+
 html, body, #root {
   height: 100%;
   margin: 0;
