@@ -1,5 +1,6 @@
 import React from 'react';
 import useTheme from '../utils/useTheme';
+import { Link } from 'react-scroll';
 
 const Navbar = () => {
   const [theme, toggleTheme] = useTheme();
@@ -28,18 +29,42 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li><a>Services</a></li>
-            <li><a>Team</a></li>
-            <li><a>Contact</a></li>
+            <li>
+              <Link to="services" smooth={true} duration={500} offset={-70}>
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link to="team" smooth={true} duration={500} offset={-70}>
+                Team
+              </Link>
+            </li>
+            <li>
+              <Link to="contact" smooth={true} duration={500} offset={-70}>
+                Contact
+              </Link>
+            </li>
           </ul>
         </div>
-            <div className='text-2xl font-semibold ml-4'>Ka Technology</div>
-        </div>
+        <div className='text-2xl font-semibold ml-4'>Ka Technology</div>
+      </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li><a className='text-lg'>Services</a></li>
-          <li><a className='text-lg'>Team</a></li>
-          <li><a className='text-lg'>Contact</a></li>
+          <li>
+            <Link to="services" className='text-lg' smooth={true} duration={500} offset={-70}>
+              Services
+            </Link>
+          </li>
+          <li>
+            <Link to="team" className='text-lg' smooth={true} duration={500} offset={-70}>
+              Team
+            </Link>
+          </li>
+          <li>
+            <Link to="contact" className='text-lg' smooth={true} duration={500} offset={-70}>
+              Contact
+            </Link>
+          </li>
         </ul>
       </div>
       <div className="navbar-end">
