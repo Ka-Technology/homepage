@@ -13,7 +13,7 @@ const LandingPage = () => {
             </h1>
             <p className="mb-5">The next generation of AI powered technology.</p>
             <div className="flex justify-center">
-              <a href="#" className="btn bg-katech-red">
+              <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
                 Coming Soon!
               </a>
             </div>
@@ -44,7 +44,7 @@ const LandingPage = () => {
                   <h2 className="card-title">AI Database</h2>
                   <p>Automate your business with the AI Database</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">See Rates</button>
+                    <button className="btn btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@ const LandingPage = () => {
                   <h2 className="card-title">AI Analytics</h2>
                   <p>Gain insights with AI-powered analytics</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">See Rates</button>
+                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
                   </div>
                 </div>
               </div>
@@ -76,7 +76,7 @@ const LandingPage = () => {
                   <h2 className="card-title">AI Support</h2>
                   <p>24/7 AI-powered customer support</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">See Rates</button>
+                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
                   </div>
                 </div>
               </div>
@@ -178,7 +178,6 @@ const LandingPage = () => {
               <span className="font-semibold"> info@ka-tch.com
               </span>
             </p>
-            {/* Add your contact form or information here */}
           </div>
         </div>
       </div>

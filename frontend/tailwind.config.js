@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'katech-red': '#ff3131',
+      },
     },
   },
   plugins: [
