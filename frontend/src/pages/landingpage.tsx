@@ -179,7 +179,9 @@ const LandingPage = () => {
                   <h2 className="card-title">Santosh</h2>
                   <p>Co-Founder and President of Ka Group</p>
                   <div className="card-actions">
+                    <a href="https://www.linkedin.com/in/santoshramesh/">
                     <button className="btn btn-primary">LinkedIn</button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -195,7 +197,9 @@ const LandingPage = () => {
                   <h2 className="card-title">Ken</h2>
                   <p>Co-Founder and Web Developer</p>
                   <div className="card-actions">
+                    <a href="https://www.linkedin.com/in/kennethleekang/">
                     <button className="btn btn-primary">LinkedIn</button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -211,7 +215,9 @@ const LandingPage = () => {
                   <h2 className="card-title">Peter</h2>
                   <p>Co-Founder and Software Engineer</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary">LinkedIn</button>
+                    <a href="https://www.linkedin.com/in/peterluey/">
+                    <button className="btn btn-primary" >LinkedIn</button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -227,7 +233,9 @@ const LandingPage = () => {
                   <h2 className="card-title">Andrew</h2>
                   <p>Co-Founder and Web Developer</p>
                   <div className="card-actions">
+                    <a href="https://www.linkedin.com/in/theandrewdang/">
                     <button className="btn btn-primary">LinkedIn</button>
+                    </a>
                   </div>
                 </div>
               </div>
