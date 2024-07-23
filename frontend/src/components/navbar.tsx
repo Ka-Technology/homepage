@@ -58,17 +58,17 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link to="services" className="text-lg" smooth={true} duration={500} offset={-70}>
+              <Link to="services" className="text-base" smooth={true} duration={500} offset={-70}>
                 Services
               </Link>
             </li>
             <li>
-              <Link to="team" className="text-lg" smooth={true} duration={500} offset={-70}>
+              <Link to="team" className="text-base" smooth={true} duration={500} offset={-70}>
                 Team
               </Link>
             </li>
             <li>
-              <Link to="contact" className="text-lg" smooth={true} duration={500} offset={-70}>
+              <Link to="contact" className="text-base" smooth={true} duration={500} offset={-70}>
                 Contact
               </Link>
             </li>

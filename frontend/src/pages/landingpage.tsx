@@ -101,6 +101,8 @@ const LandingPage = () => {
               </div>
             </div>  
             
+
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="card bg-base-100 shadow-xl">
                 <figure className="px-15 pt-15">
