@@ -171,77 +171,25 @@ const LandingPage = () => {
               The people that made this all possible!
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="card bg-base-100 shadow-xl teamblock">
-                <figure className="px-45 pt-25">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Database"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">Santosh</h2>
-                  <p>Co-Founder and President of Ka Group</p>
-                  <div className="card-actions">
-                    <a href="https://www.linkedin.com/in/santoshramesh/">
-                    <button className="btn btn-primary">LinkedIn</button>
-                    </a>
-                  </div>
+              {people.map((person: {name: any, role: any, image: any, link: any}, index) =>
+              <div key={index} className="card bg-base-100 shadow-xl teamblock">
+              <figure className="px-15 pt-15">
+                <img
+                  src={urlFor(person.image).url()}
+                  alt="AI Analytics"
+                  className="rounded-xl" />
+              </figure>
+              <div className="card-body items-center text-center">
+                <h2 className="card-title">{person.name}</h2>
+                <p>{person.role}</p>
+                <div className="card-actions">
+                  <a href={person.link}>
+                  <button className="btn btn-primary">LinkedIn</button>
+                  </a>
                 </div>
               </div>
-
-              <div className="card bg-base-100 shadow-xl teamblock">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Analytics"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">Ken</h2>
-                  <p>Co-Founder and Web Developer</p>
-                  <div className="card-actions">
-                    <a href="https://www.linkedin.com/in/kennethleekang/">
-                    <button className="btn btn-primary">LinkedIn</button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl teamblock">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Support"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">Peter</h2>
-                  <p>Co-Founder and Software Engineer</p>
-                  <div className="card-actions">
-                    <a href="https://www.linkedin.com/in/peterluey/">
-                    <button className="btn btn-primary" >LinkedIn</button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl teamblock">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Support"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">Andrew</h2>
-                  <p>Co-Founder and Web Developer</p>
-                  <div className="card-actions">
-                    <a href="https://www.linkedin.com/in/theandrewdang/">
-                    <button className="btn btn-primary">LinkedIn</button>
-                    </a>
-                  </div>
-                </div>
-              </div>
+            </div>
+              )}
             </div>
           </div>
         </div>
