@@ -141,6 +141,7 @@ const LandingPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {serviceOverviews.map((serviceOverview: {name: any, description: any, slug: any}, index) => (
           <div key={index} className="card bg-base-100 shadow-xl">
+            {/* add the simple icon instead of the image here */}
             <figure className="px-15 pt-15">
               <img
                 src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
