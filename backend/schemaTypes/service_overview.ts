@@ -16,14 +16,6 @@ export default {
             description: 'One line description',
         },
         {
-            name: 'image',
-            title: 'Image',
-            type: 'image',
-            options: {
-                hotspot: true
-            },
-        },
-        {
             name: 'priority',
             title: 'Priority',
             type: 'number',
@@ -35,7 +27,7 @@ export default {
             type: 'slug',
             description: 'For the rate page (for later)',
             options: {
-                source: 'title',
+                source: 'name',
                 maxLength: 96
             },
         },
