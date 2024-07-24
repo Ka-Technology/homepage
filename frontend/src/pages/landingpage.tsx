@@ -1,58 +1,92 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {client, urlFor} from '../client';
 
 const LandingPage = () => {
-  const images = [
-    'https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop',
-    'https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg',
-    'https://indieground.net/wp-content/uploads/2023/03/Freebie-GradientTextures-Preview-02.jpg',
-  ];
 
-  const sections = [
-    {
-      title: 'AI Database',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      title: 'AI Analytics',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      title: 'AI Support',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-  ];
+  // Set the variable to hold the query
+  const [people, setPeople] = useState([]);
+  const [services, setServices] = useState([]);
+  const [serviceOverviews, setSerViceOverviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleScroll = () => {
-    const sections = document.querySelectorAll('.scroll-section') as NodeListOf<HTMLElement>;
-    const stickyImage = document.getElementById('sticky-image') as HTMLImageElement;
-    const scrollY = window.scrollY;
-    const threshold = window.innerHeight / 2;
-
-    sections.forEach((section, index) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-
-      if (scrollY >= sectionTop - threshold && scrollY < sectionTop + sectionHeight - threshold) {
-        if (stickyImage) {
-          if (stickyImage.dataset.src !== images[index]) {
-            stickyImage.style.opacity = '0';
-            setTimeout(() => {
-              stickyImage.src = images[index];
-              stickyImage.dataset.src = images[index];
-              stickyImage.style.opacity = '1'; 
-            }, 150);
-          }
-        }
-      }
-    });
-  };
-
+  // client connection
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
+    const fetchData = async() => {
+      try {
+        // fetch service data
+        const queryService = '*[_type == "service"] | order(priority asc)';
+        client.fetch(queryService).then((serviceData) => {
+          setServices(serviceData);
+          });
+
+
+        // fetch service overview data
+        const queryServiceOverview = '*[_type == "service_overview"] | order(priority asc)';
+        client.fetch(queryServiceOverview).then((serviceOverviewData) => {
+          setSerViceOverviews(serviceOverviewData);
+        });
+
+        // fetch people data
+        const queryPeople = '*[_type == "people"] | order(priority asc)';
+        client.fetch(queryPeople).then((peopleData) => {
+          setPeople(peopleData);
+        });
+
+        // loading complete
+        setLoading(false);
+
+      } catch (error) {
+        console.error('Error fetching data', error);
+        setLoading(false);
+      }
     };
+
+    fetchData();
   }, []);
+
+
+  
+
+  // const handleScroll = () => {
+  //   const sections = document.querySelectorAll('.scroll-section') as NodeListOf<HTMLElement>;
+  //   const stickyImage = document.getElementById('sticky-image') as HTMLImageElement;
+  //   const scrollY = window.scrollY;
+  //   const threshold = window.innerHeight / 2;
+
+  //   sections.forEach((section, index) => {
+  //     const sectionTop = section.offsetTop;
+  //     const sectionHeight = section.offsetHeight;
+
+  //     if (scrollY >= sectionTop - threshold && scrollY < sectionTop + sectionHeight - threshold) {
+  //       if (stickyImage) {
+  //         if (stickyImage.dataset.src !== serviceImages[index]) {
+  //           stickyImage.style.opacity = '0';
+  //           setTimeout(() => {
+  //             stickyImage.src = serviceImages[index];
+  //             stickyImage.dataset.src = serviceImages[index];
+  //             stickyImage.style.opacity = '1'; 
+  //           }, 150);
+  //         }
+  //       }
+  //     }
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
+
+  if (loading) {
+    return <div className="flex w-52 flex-col gap-4">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>;
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -87,14 +121,14 @@ const LandingPage = () => {
 
             <div className="flex">
               <div className="w-1/2 h-screen sticky top-0 flex items-center justify-center">
-                <img id="sticky-image" src={images[0]} data-src={images[0]} alt="Sticky" className="rounded-xl max-w-full max-h-full object-contain transition-opacity duration-300" />
+                  <p>Animate Icon Placer</p>
               </div>
               <div className="w-1/2 flex flex-col justify-center">
-                {sections.map((section, index) => (
+                {services.map((service: {name: any, description: any}, index) => (
                   <div key={index} className="scroll-section min-h-screen p-8 flex items-center">
                     <div>
-                      <h2 className="text-4xl font-bold mb-4">{section.title}</h2>
-                      <p className="text-lg ">{section.content}</p>
+                      <h2 className="text-4xl font-bold mb-4">{service.name}</h2>
+                      <p className="text-lg ">{service.description}</p>
                     </div>
                   </div>
                 ))}
@@ -130,6 +164,22 @@ const LandingPage = () => {
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">AI Analytics</h2>
                   <p>Gain insights with AI-powered analytics</p>
+                  <div className="card-actions">
+                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card bg-base-100 shadow-xl">
+                <figure className="px-15 pt-15">
+                  <img
+                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
+                    alt="AI Support"
+                    className="rounded-xl" />
+                </figure>
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">AI Support</h2>
+                  <p>24/7 AI-powered customer support</p>
                   <div className="card-actions">
                     <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
                   </div>

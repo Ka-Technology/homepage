@@ -22,9 +22,15 @@ export default {
             description: 'Image of the person'
         },
         {
-            name: 'description',
-            title: 'Description',
-            type: 'string'
-        }
+            name: 'link',
+            title: "LinkedIn Link",
+            type: 'url',
+        },
+        {
+            name: 'priority',
+            title: 'Priority',
+            type: 'number',
+            description: 'Order of the people display from left to right'
+        },
     ]
 }
