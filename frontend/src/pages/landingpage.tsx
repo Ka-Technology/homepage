@@ -6,7 +6,7 @@ const LandingPage = () => {
   // Set the variable to hold the query
   const [people, setPeople] = useState([]);
   const [services, setServices] = useState([]);
-  const [serviceOverviews, setSerViceOverviews] = useState([]);
+  const [serviceOverviews, setServiceOverviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // client connection
@@ -23,7 +23,7 @@ const LandingPage = () => {
         // fetch service overview data
         const queryServiceOverview = '*[_type == "service_overview"] | order(priority asc)';
         client.fetch(queryServiceOverview).then((serviceOverviewData) => {
-          setSerViceOverviews(serviceOverviewData);
+          setServiceOverviews(serviceOverviewData);
         });
 
         // fetch people data
@@ -133,77 +133,30 @@ const LandingPage = () => {
                   </div>
                 ))}
               </div>
-            </div>  
-            
-
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="card bg-base-100 shadow-xl">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Database"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Database</h2>
-                  <p>Automate your business with the AI Database</p>
-                  <div className="card-actions">
-                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Analytics"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Analytics</h2>
-                  <p>Gain insights with AI-powered analytics</p>
-                  <div className="card-actions">
-                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Support"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Support</h2>
-                  <p>24/7 AI-powered customer support</p>
-                  <div className="card-actions">
-                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Support"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Support</h2>
-                  <p>24/7 AI-powered customer support</p>
-                  <div className="card-actions">
-                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
+      </div>
+            
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {serviceOverviews.map((serviceOverview: {name: any, description: any, slug: any}, index) => (
+          <div key={index} className="card bg-base-100 shadow-xl">
+            <figure className="px-15 pt-15">
+              <img
+                src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
+                alt="AI Database"
+                className="rounded-xl" />
+            </figure>
+            <div  className="card-body items-center text-center">
+              <h2 className="card-title">{serviceOverview.name}</h2>
+                <p>{serviceOverview.description}</p>
+                <div className="card-actions">
+                  {/* Add the slug link later once we have template pages for the rate and such */}
+                  <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button> 
+                </div>
+            </div>
+        </div>
+        ))}
       </div>
 
       <div id="team" className="hero min-h-screen">
