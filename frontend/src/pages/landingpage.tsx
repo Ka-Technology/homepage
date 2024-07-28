@@ -107,7 +107,7 @@ const LandingPage = () => {
               <div className="card bg-base-100 shadow-xl">
                 <figure className="px-15 pt-15">
                   <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
+                    src="https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg"
                     alt="AI Database"
                     className="rounded-xl" />
                 </figure>
@@ -123,7 +123,7 @@ const LandingPage = () => {
               <div className="card bg-base-100 shadow-xl">
                 <figure className="px-15 pt-15">
                   <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
+                    src="https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg"
                     alt="AI Analytics"
                     className="rounded-xl" />
                 </figure>
@@ -139,7 +139,7 @@ const LandingPage = () => {
               <div className="card bg-base-100 shadow-xl">
                 <figure className="px-15 pt-15">
                   <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
+                    src="https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg"
                     alt="AI Support"
                     className="rounded-xl" />
                 </figure>
