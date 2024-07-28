@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { CardDemo } from "../components/ui/animatedcard"
 import {client, urlFor} from '../client';
 
 const LandingPage = () => {
@@ -149,7 +150,7 @@ const LandingPage = () => {
 
             <div className="flex">
               <div className="w-1/2 h-screen sticky top-0 flex items-center justify-center">
-                  <p>Animate Icon Placer</p>
+                  <CardDemo />
               </div>
               <div className="w-1/2 flex flex-col justify-center">
                 {services.map((service: {name: any, description: any}, index) => (
