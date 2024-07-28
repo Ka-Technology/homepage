@@ -210,6 +210,14 @@ const LandingPage = () => {
               <span className="font-semibold"> info@ka-tch.com
               </span>
             </p>
+            <div>
+              <label className="form-control w-full max-w-xs">
+                <input type="text" placeholder="Full Name" className="input input-bordered w-full max-w-xs" />
+                <input type="text" placeholder="Email" className="input input-bordered w-full max-w-xs mt-3" />
+                <textarea className="textarea textarea-bordered mt-3" placeholder="Message"></textarea>
+              </label>
+              <button className="btn w-full max-w-xs mt-3  bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">Submit</button>
+            </div>
           </div>
         </div>
       </div>
