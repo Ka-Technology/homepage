@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {client, urlFor} from '../client';
 
 const LandingPage = () => {
@@ -8,6 +8,7 @@ const LandingPage = () => {
   const [services, setServices] = useState([]);
   const [serviceOverviews, setServiceOverviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   // client connection
   useEffect(() => {
@@ -44,6 +45,33 @@ const LandingPage = () => {
     fetchData();
   }, []);
 
+
+  // This is for the fancy animations you see on the Teams section
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0
+    };
+
+    const callback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    };
+
+    observerRef.current = new IntersectionObserver(callback, options);
+    const teamBlocks = document.querySelectorAll('.teamblock');
+    teamBlocks.forEach(block => {
+      observerRef.current?.observe(block);
+    });
+
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, [people]);
 
   
 
@@ -165,33 +193,32 @@ const LandingPage = () => {
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
-              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent"> 
+              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
                 Meet The Team
               </span>
             </h1>
-            <p className="mb-5">
-              The people that made this all possible!
-            </p>
+            <p className="mb-5">The people that made this all possible!</p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {people.map((person: {name: any, role: any, image: any, link: any}, index) =>
-              <div key={index} className="card bg-base-100 shadow-xl teamblock">
-              <figure className="px-15 pt-15">
-                <img
-                  src={urlFor(person.image).url()}
-                  alt="AI Analytics"
-                  className="rounded-xl" />
-              </figure>
-              <div className="card-body items-center text-center">
-                <h2 className="card-title">{person.name}</h2>
-                <p>{person.role}</p>
-                <div className="card-actions">
-                  <a href={person.link}>
-                  <button className="btn btn-primary">LinkedIn</button>
-                  </a>
+              {people.map((person: { name: any; role: any; image: any; link: any }, index) => (
+                <div key={index} className="card bg-base-100 shadow-xl teamblock">
+                  <figure className="px-15 pt-15">
+                    <img
+                      src={urlFor(person.image).url()}
+                      alt="AI Analytics"
+                      className="rounded-xl"
+                    />
+                  </figure>
+                  <div className="card-body items-center text-center">
+                    <h2 className="card-title">{person.name}</h2>
+                    <p>{person.role}</p>
+                    <div className="card-actions">
+                      <a href={person.link}>
+                        <button className="btn btn-primary">LinkedIn</button>
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-              )}
+              ))}
             </div>
           </div>
         </div>
