@@ -155,6 +155,7 @@ const LandingPage = () => {
                   {/* Add the slug link later once we have template pages for the rate and such */}
                   <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button> 
                 </div>
+
             </div>
         </div>
         ))}
