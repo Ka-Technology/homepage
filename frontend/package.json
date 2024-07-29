@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@sanity/client": "^6.21.1",
     "@sanity/image-url": "^1.0.2",
     "aos": "^2.3.4",

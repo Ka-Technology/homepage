@@ -1,14 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CardDemo } from "../components/ui/animatedcard"
 import {client, urlFor} from '../client';
+import emailjs from "@emailjs/browser";
 
 const LandingPage = () => {
 
-  // Set the variable to hold the query
+  // Set variables to hold the query
   const [people, setPeople] = useState([]);
   const [services, setServices] = useState([]);
   const [serviceOverviews, setServiceOverviews] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Set variable for data input from contact
+  const [formData, setFormData] = useState({name: '', email: '', message: ''});
+  const [isFormSubmitted, setisFormSubmitted] = useState(false);
+  const [loadingSubmit, setloadingSubmit] = useState(false);
+
+  // Structure the formData
+  const {name, email, message} = formData;
+
+  // Set reference for animation
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   // client connection
@@ -73,6 +84,68 @@ const LandingPage = () => {
       observerRef.current?.disconnect();
     };
   }, [people]);
+
+  // handle key input for message sent
+  const handleChangeInput = (e: any) => {
+    const {name, value} = e.target;
+    
+    setFormData({ ...formData, [name]: value});
+  }
+
+  // Dealing handle submit for contact
+  const handleSubmit = () => {
+    if (!name.trim() || !email.trim() || !message.trim()) {
+        alert('Warning: All fields must be filled out.');
+        return;
+    }
+
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Check if email is valid
+    if (!emailRegex.test(email)) {
+        alert('Warning: Please enter a valid email address.');
+        return;
+    }
+
+    setloadingSubmit(true);
+
+    const contact = {
+        _type: 'contact',
+        name: name,
+        email: email,
+        message: message,
+    }
+
+    client.create(contact)
+        .then(() => {
+            setloadingSubmit(false);
+            setisFormSubmitted(true);
+        })
+        .catch(error => {
+            setloadingSubmit(false);
+            console.error('Error submitting form:', error);
+        });
+    
+    emailjs.init(import.meta.env.VITE_EMAIL_USER_ID);
+    emailjs
+        .send(
+          import.meta.env.VITE_EMAIL_SERVICE_ID,
+          import.meta.env.VITE_EMAIL_TEMPLATE_ID,
+          {
+            name: name,
+            email: email,
+            message: message,
+          }
+        )
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });  
+};
+
 
   
 
@@ -238,14 +311,19 @@ const LandingPage = () => {
               <span className="font-semibold"> info@ka-tch.com
               </span>
             </p>
+            {!isFormSubmitted ? 
             <div>
               <label className="form-control w-full max-w-xs">
-                <input type="text" placeholder="Full Name" className="input input-bordered w-full max-w-xs" />
-                <input type="text" placeholder="Email" className="input input-bordered w-full max-w-xs mt-3" />
-                <textarea className="textarea textarea-bordered mt-3" placeholder="Message"></textarea>
+                <input type="text" placeholder="Full Name" name="name" value={name} onChange={handleChangeInput} className="input input-bordered w-full max-w-xs" />
+                <input type="text" placeholder="Email" name="email" value={email} onChange={handleChangeInput} className="input input-bordered w-full max-w-xs mt-3" />
+                <textarea className="textarea textarea-bordered mt-3" placeholder="Message" name="message" value={message} onChange={handleChangeInput}></textarea>
               </label>
-              <button className="btn w-full max-w-xs mt-3  bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">Submit</button>
+              <button className="btn w-full max-w-xs mt-3  bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600" onClick={handleSubmit}>{loadingSubmit ? 'Sending': 'Send Message'}</button>
             </div>
+            :
+            <div>
+              <h3>Thank you for contacting us! We will respond as soon as possible!</h3>
+              </div>}
           </div>
         </div>
       </div>
