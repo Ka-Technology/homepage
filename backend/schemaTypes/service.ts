@@ -12,8 +12,16 @@ export default {
         {
             name: 'description',
             title: 'Description',
-            type: 'string',
-            description: 'One paragraph',
+            type: 'array',
+            of: [
+              {
+                type: 'block',
+                lists: [
+                    {title: 'Bullet', value: 'bullet'},
+                    {title: 'Numbered', value: 'number'}
+                  ]  
+              }
+            ]
         },
         {
             name: 'priority',

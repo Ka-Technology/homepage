@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { CardDemo } from "../components/ui/animatedcard"
 import {client, urlFor} from '../client';
 import emailjs from "@emailjs/browser";
+import { PortableText } from "@portabletext/react";
 
 const LandingPage = () => {
 
@@ -218,7 +219,7 @@ const LandingPage = () => {
               </span>
             </h1>
             <p className="mb-5">
-              Offering the future of your business today.
+            It's our belief at Ka Technology that people should be given the power of meaningful choices. These choices come from technology that provides freedom through automation and reduced risk through information analytics. Here are some of the ways in which we provide you with more choice.
             </p>
 
             <div className="flex">
@@ -230,7 +231,9 @@ const LandingPage = () => {
                   <div key={index} className="scroll-section min-h-screen p-8 flex items-center">
                     <div>
                       <h2 className="text-4xl font-bold mb-4">{service.name}</h2>
-                      <p className="text-lg ">{service.description}</p>
+                      <p className="text-lg ">
+                        <PortableText value={service.description} />
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -273,7 +276,7 @@ const LandingPage = () => {
             </h1>
             <p className="mb-5">The people that made this all possible!</p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {people.map((person: { name: any; role: any; image: any; link: any }, index) => (
+              {people.map((person: { name: any; role: any; image: any; link: any, about: any }, index) => (
                 <div key={index} className="card bg-base-100 shadow-xl teamblock">
                   <figure className="px-15 pt-15">
                     <img
@@ -284,7 +287,8 @@ const LandingPage = () => {
                   </figure>
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">{person.name}</h2>
-                    <p>{person.role}</p>
+                    <p className="role">{person.role}</p>
+                    <p className="about">{person.about}</p>
                     <div className="card-actions">
                       <a href={person.link}>
                         <button className="btn btn-primary">LinkedIn</button>
