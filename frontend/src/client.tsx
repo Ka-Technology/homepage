@@ -1,11 +1,13 @@
 import {createClient, type ClientConfig} from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 
+
 const config:ClientConfig = {
-    projectId: 'jf93t9bi',
+    projectId: import.meta.env.VITE_APP_SANITY_PROJECT_ID,
     dataset: 'production',
     useCdn: true,
     apiVersion: '2024-07-23',
+    token: import.meta.env.VITE_APP_SANITY_TOKEN,
 }
 
 export const client = createClient(config)
