@@ -232,6 +232,7 @@ const LandingPage = () => {
                     <div>
                       <h2 className="text-4xl font-bold mb-4">{service.name}</h2>
                       <p className="text-lg ">
+                        {/* TODO: You need to look into the element section to style these values: there is no way I could classify each element for each class or id for them to display these values */}
                         <PortableText value={service.description} />
                       </p>
                     </div>
@@ -288,7 +289,6 @@ const LandingPage = () => {
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">{person.name}</h2>
                     <p className="role">{person.role}</p>
-                    <p className="about">{person.about}</p>
                     <div className="card-actions">
                       <a href={person.link}>
                         <button className="btn btn-primary">LinkedIn</button>
