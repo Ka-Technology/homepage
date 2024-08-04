@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { client, urlFor } from '../client';
 import emailjs from "@emailjs/browser";
 import { Carousel, Card } from "../components/ui/apple-cards-carousel";
+import { FaChevronDown } from "react-icons/fa6";
 
 // DummyContent Component
 const DummyContent = () => {
@@ -21,7 +22,7 @@ const DummyContent = () => {
           </p>
           <img
             src="https://assets.aceternity.com/macbook.png"
-            alt="Macbook mockup from Aceternity UI"
+            alt="Macbook mockup"
             height="500"
             width="500"
             className="md:w-1/2 md:h-1/2 h-full w-full mx-auto object-contain"
@@ -215,6 +216,18 @@ const LandingPage = () => {
       });
   };
 
+  const [showChevron, setShowChevron] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowChevron(window.scrollY < 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
   if (loading) {
     return (
       <div className="flex w-52 flex-col gap-4">
@@ -228,23 +241,28 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="hero min-h-screen">
-        <div className="text-center hero-content">
-          <div className="max-w-lg">
-            <h1 className="mb-5 text-5xl font-bold">
-              <span className="text-8xl font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
-                Ka Technology
-              </span>
-            </h1>
-            <p className="mb-5">The next generation of AI powered technology.</p>
-            <div className="flex justify-center">
-              <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
-                Coming Soon!
-              </a>
-            </div>
+    <div className="hero min-h-screen flex flex-col justify-center items-center">
+      <div className="text-center hero-content">
+        <div className="max-w-lg">
+          <h1 className="mb-5 text-5xl font-bold">
+            <span className="text-8xl font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+              Ka Technology
+            </span>
+          </h1>
+          <p className="mb-5">The next generation of AI powered technology.</p>
+          <div className="flex justify-center">
+            <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
+              Coming Soon!
+            </a>
           </div>
         </div>
       </div>
+      {showChevron && (
+          <div className="absolute bottom-10 flex justify-center w-full">
+            <FaChevronDown className="animate-bounce text-4xl" />
+          </div>
+        )}
+    </div>
       <div id="services" className="hero min-h-screen max-w-screen">
         <AppleCardsCarouselDemo />
       </div>
@@ -279,12 +297,12 @@ const LandingPage = () => {
             <p className="mb-5">The people that made this all possible!</p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {people.map((person: { name: any; role: any; image: any; link: any }, index) => (
-                <div key={index} className="card bg-base-100 shadow-xl teamblock">
-                  <figure className="px-15 pt-15">
+                <div key={index} className="rounded-xl bg-base-100 shadow-xl teamblock">
+                  <figure>
                     <img
                       src={urlFor(person.image).url()}
-                      alt="AI Analytics"
-                      className="rounded-xl"
+                      alt="Team Member Images"
+                      className="rounded-t-xl object-cover"
                     />
                   </figure>
                   <div className="card-body items-center text-center">
