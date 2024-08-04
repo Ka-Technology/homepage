@@ -27,6 +27,12 @@ export default {
             type: 'url',
         },
         {
+            name: 'about',
+            title: 'About',
+            type: 'string',
+            description: 'Short about section'
+        },
+        {
             name: 'priority',
             title: 'Priority',
             type: 'number',
