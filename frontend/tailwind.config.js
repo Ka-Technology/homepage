@@ -15,6 +15,7 @@ module.exports = {
       },
       animation: {
         move: "move 5s linear infinite",
+        'spin-slow': 'spin 100s linear infinite',
       },
       keyframes: {
         move: {
