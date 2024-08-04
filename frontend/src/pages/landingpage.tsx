@@ -4,6 +4,8 @@ import { client, urlFor } from '../client';
 import emailjs from "@emailjs/browser";
 import { Carousel, Card } from "../components/ui/apple-cards-carousel";
 import { FaChevronDown } from "react-icons/fa6";
+import { PortableText } from "@portabletext/react";
+
 
 // DummyContent Component
 const DummyContent = () => {
@@ -307,7 +309,7 @@ const LandingPage = () => {
                   </figure>
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">{person.name}</h2>
-                    <p>{person.role}</p>
+                    <p className="role">{person.role}</p>
                     <div className="card-actions">
                       <a href={person.link}>
                         <button className="btn btn-primary">LinkedIn</button>
