@@ -54,7 +54,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="text-2xl font-semibold ml-4">
-            <img src="../public/KaTechLogoWText.png" alt="logo" className="h-14 w-full" />
+            <img src="/KaTechLogoWText.png" alt="logo" className="h-14 w-full" />
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
