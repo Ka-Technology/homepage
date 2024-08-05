@@ -4,11 +4,12 @@ import { client, urlFor } from '../client';
 import emailjs from "@emailjs/browser";
 import { Carousel, Card } from "../components/ui/apple-cards-carousel";
 import { FaChevronDown } from "react-icons/fa6";
-
+import { Link } from "react-scroll";
 
 export function ServiceAndOfferingCards() {
   const [services, setServices] = useState([]); // State to store service data
   const [loading, setLoading] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchServicesAndOfferings = async () => {
@@ -81,7 +82,7 @@ export function ServiceAndOfferingCards() {
       <h2 className="text-center mx-auto text-5xl md:text-5xl font-semibold pb-4">
         Services
       </h2>
-      <p className="text-center font-mono italic">
+      <p className="text-center font-mono italic px-4">
         People should be given the power of meaningful choices from
         freedom through automation to reducing risk through information
         analytics
@@ -254,19 +255,21 @@ const LandingPage = () => {
             </h1>
             <p className="mb-5">The next generation of AI powered technology</p>
             <div className="flex justify-center">
-              <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
-                Get Started!
-              </a>
+              <Link to="services" smooth={true} duration={500}>
+                <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
+                  Get Started!
+                </a>
+              </Link>
             </div>
           </div>
         </div>
         {/* <div className="scrolling-text-container">
           <div className="scrolling-text font-semibold text-2xl">
               ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开
-              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开 
-              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开 
-              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开 
-              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ક ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ક ک ꯀ ᱠᱚ 카 កា 开 
           </div>
         </div> */}
         {showChevron && (
@@ -276,7 +279,7 @@ const LandingPage = () => {
         )}
       </div>
       <div id="services" className="min-h-screen">
-      <ServiceAndOfferingCards />
+        <ServiceAndOfferingCards />
       </div>
       <div id="team" className="hero min-h-screen overflow-x-hidden">
         <div className="text-center hero-content">
@@ -286,7 +289,7 @@ const LandingPage = () => {
                 The Dream Team
               </span>
             </h1>
-            <p className="mb-5 italic font-serif">The people that made this all possible!</p>
+            <p className="mb-5 text-lg italic font-serif">The people that made this all possible!</p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {people.map((person: { name: any; role: any; image: any; link: any }, index) => (
                 <div key={index} className="rounded-xl bg-base-100 shadow-xl teamblock">
