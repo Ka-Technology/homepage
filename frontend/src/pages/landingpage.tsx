@@ -29,7 +29,7 @@ export function ServiceAndOfferingCards() {
             src: urlFor(service.image).url(),
             content: (
               <>
-                <p className="service-description">{service.description}</p>
+                <p className="service-description text-neutral-100 pb-4">{service.description}</p>
                 {offeringData.map((offering: any, index: any) => (
                   <div
                     key={`offering-content-${index}`}
@@ -43,10 +43,10 @@ export function ServiceAndOfferingCards() {
                     <p>{offering.description}</p>
                     <img
                       src={urlFor(offering.image).url()}
-                      alt="Macbook mockup"
+                      alt="Image"
                       height="500"
                       width="500"
-                      className="md:w-1/2 md:h-1/2 h-full w-full mx-auto object-contain"
+                      className="md:w-1/2 md:h-1/2 h-full w-full mx-auto rounded-xl object-contain"
                     />
                   </div>
                 ))}
@@ -78,7 +78,7 @@ export function ServiceAndOfferingCards() {
 
   return (
     <div className="w-full h-full py-20">
-      <h2 className="text-center mx-auto text-xl md:text-5xl font-bold pb-4">
+      <h2 className="text-center mx-auto text-5xl md:text-5xl font-semibold pb-4">
         Services
       </h2>
       <p className="text-center font-mono italic">
@@ -248,14 +248,14 @@ const LandingPage = () => {
         <div className="text-center hero-content">
           <div className="max-w-lg">
             <h1 className="mb-5 text-5xl font-bold">
-              <span className="text-8xl font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="text-7xl  md:text-8xl  font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
                 Ka Technology
               </span>
             </h1>
             <p className="mb-5">The next generation of AI powered technology</p>
             <div className="flex justify-center">
               <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
-                Coming Soon!
+                Get Started!
               </a>
             </div>
           </div>
@@ -282,11 +282,11 @@ const LandingPage = () => {
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
-              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
-                Meet The Team
+              <span className="font-bold font-serif tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+                The Dream Team
               </span>
             </h1>
-            <p className="mb-5">The people that made this all possible!</p>
+            <p className="mb-5 italic font-serif">The people that made this all possible!</p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {people.map((person: { name: any; role: any; image: any; link: any }, index) => (
                 <div key={index} className="rounded-xl bg-base-100 shadow-xl teamblock">
@@ -298,8 +298,8 @@ const LandingPage = () => {
                     />
                   </figure>
                   <div className="card-body items-center text-center">
-                    <h2 className="card-title">{person.name}</h2>
-                    <p className="role">{person.role}</p>
+                    <h2 className="font-serif font-bold card-title">{person.name}</h2>
+                    <p className="role italic">{person.role}</p>
                     <div className="card-actions">
                       <a href={person.link}>
                         <button className="btn btn-primary">LinkedIn</button>
