@@ -78,15 +78,13 @@ export function ServiceAndOfferingCards() {
 
   return (
     <div className="w-full h-full py-20">
-      <h2 className="text-center mx-auto text-xl md:text-5xl font-bold">
+      <h2 className="text-center mx-auto text-xl md:text-5xl font-bold pb-4">
         Services
       </h2>
-      <p>
-        It's our belief at Ka Technology that people should be given the power
-        of meaningful choices. These choices come from technology that provides
-        freedom through automation and reduced risk through information
-        analytics. Here are some of the ways in which we provide you with more
-        choice.
+      <p className="text-center font-mono italic">
+        People should be given the power of meaningful choices from
+        freedom through automation to reducing risk through information
+        analytics
       </p>
       <Carousel items={cards} />
     </div>
@@ -245,33 +243,42 @@ const LandingPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-    <div className="hero min-h-screen flex flex-col justify-center items-center">
-      <div className="text-center hero-content">
-        <div className="max-w-lg">
-          <h1 className="mb-5 text-5xl font-bold">
-            <span className="text-8xl font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
-              Ka Technology
-            </span>
-          </h1>
-          <p className="mb-5">The next generation of AI powered technology.</p>
-          <div className="flex justify-center">
-            <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
-              Coming Soon!
-            </a>
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
+      <div className="hero min-h-screen flex flex-col justify-center items-center">
+        <div className="text-center hero-content">
+          <div className="max-w-lg">
+            <h1 className="mb-5 text-5xl font-bold">
+              <span className="text-8xl font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+                Ka Technology
+              </span>
+            </h1>
+            <p className="mb-5">The next generation of AI powered technology</p>
+            <div className="flex justify-center">
+              <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
+                Coming Soon!
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      {showChevron && (
+        {/* <div className="scrolling-text-container">
+          <div className="scrolling-text font-semibold text-2xl">
+              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开
+              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开 
+          </div>
+        </div> */}
+        {showChevron && (
           <div className="absolute bottom-10 flex justify-center w-full">
             <FaChevronDown className="animate-bounce text-4xl" />
           </div>
         )}
-    </div>
-      <div id="services" className="hero min-h-screen max-w-screen">
-        <ServiceAndOfferingCards />
       </div>
-      <div id="team" className="hero min-h-screen">
+      <div id="services" className="min-h-screen">
+      <ServiceAndOfferingCards />
+      </div>
+      <div id="team" className="hero min-h-screen overflow-x-hidden">
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
@@ -305,7 +312,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div id="contact" className="hero min-h-screen">
+      <div id="contact" className="hero min-h-screen overflow-x-hidden">
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
