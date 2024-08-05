@@ -4,85 +4,99 @@ import { client, urlFor } from '../client';
 import emailjs from "@emailjs/browser";
 import { Carousel, Card } from "../components/ui/apple-cards-carousel";
 import { FaChevronDown } from "react-icons/fa6";
-import { PortableText } from "@portabletext/react";
 
 
-// DummyContent Component
-const DummyContent = () => {
-  return (
-    <>
-      {[...new Array(3).fill(1)].map((_, index) => (
-        <div
-          key={"dummy-content" + index}
-          className="bg-[#F5F5F7] p-8 md:p-14 rounded-3xl mb-4"
-        >
-          <p className="text-neutral-600 text-base md:text-2xl font-sans max-w-3xl mx-auto">
-            <span className="font-bold text-neutral-700">
-              Test
-            </span>{" "}
-            Test
-          </p>
-          <img
-            src="https://assets.aceternity.com/macbook.png"
-            alt="Macbook mockup"
-            height="500"
-            width="500"
-            className="md:w-1/2 md:h-1/2 h-full w-full mx-auto object-contain"
-          />
-        </div>
-      ))}
-    </>
-  );
-};
+export function ServiceAndOfferingCards() {
+  const [services, setServices] = useState([]); // State to store service data
+  const [loading, setLoading] = useState(true);
 
-// Data Array for the Carousel
-const data = [
-  {
-    category: "Artificial Intelligence",
-    title: "You can do more with AI.",
-    src: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=3556&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-  {
-    category: "Productivity",
-    title: "Enhance your productivity.",
-    src: "https://images.unsplash.com/photo-1531554694128-c4c6665f59c2?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-  {
-    category: "Artificial Intelligence",
-    title: "You can do more with AI.",
-    src: "https://images.unsplash.com/photo-1713869791518-a770879e60dc?q=80&w=2333&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-  {
-    category: "Artificial Intelligence",
-    title: "You can do more with AI.",
-    src: "https://images.unsplash.com/photo-1599202860130-f600f4948364?q=80&w=2515&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-];
+  useEffect(() => {
+    const fetchServicesAndOfferings = async () => {
+      try {
+        // Fetch service data
+        const queryService = '*[_type == "service"] | order(priority asc)';
+        const serviceData = await client.fetch(queryService);
 
-export function AppleCardsCarouselDemo() {
-  const cards = data.map((card, index) => (
+        // For each service, fetch its offerings
+        const promises = serviceData.map(async (service: any) => {
+          const queryOffering = `*[_type == "offering" && category == "${service.name}"] | order(priority asc)`;
+          const offeringData = await client.fetch(queryOffering);
+          console.log(offeringData);
+
+          return {
+            category: "",
+            title: service.name,
+            src: urlFor(service.image).url(),
+            content: (
+              <>
+                <p className="service-description">{service.description}</p>
+                {offeringData.map((offering: any, index: any) => (
+                  <div
+                    key={`offering-content-${index}`}
+                    className="bg-[#F5F5F7] p-8 md:p-14 rounded-3xl mb-4"
+                  >
+                    <p className="text-neutral-600 text-base md:text-2xl font-sans max-w-3xl mx-auto">
+                      <span className="font-bold text-neutral-700">
+                        {offering.name}
+                      </span>
+                    </p>
+                    <p>{offering.description}</p>
+                    <img
+                      src={urlFor(offering.image).url()}
+                      alt="Macbook mockup"
+                      height="500"
+                      width="500"
+                      className="md:w-1/2 md:h-1/2 h-full w-full mx-auto object-contain"
+                    />
+                  </div>
+                ))}
+              </>
+            ),
+          };
+        });
+
+        const results: any = await Promise.all(promises);
+        setServices(results);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching services and offerings", error);
+        setLoading(false);
+      }
+    };
+
+    fetchServicesAndOfferings();
+  }, []);
+
+  // Create cards from fetched services
+  const cards = services.map((card, index) => (
     <Card key={card.src} card={card} index={index} />
   ));
+
+  if (loading) {
+    return <div>Loading services...</div>; // Show loading state while fetching
+  }
 
   return (
     <div className="w-full h-full py-20">
       <h2 className="text-center mx-auto text-xl md:text-5xl font-bold">
         Services
       </h2>
+      <p>
+        It's our belief at Ka Technology that people should be given the power
+        of meaningful choices. These choices come from technology that provides
+        freedom through automation and reduced risk through information
+        analytics. Here are some of the ways in which we provide you with more
+        choice.
+      </p>
       <Carousel items={cards} />
     </div>
   );
 }
 
+
 const LandingPage = () => {
   // Set variables to hold the query
   const [people, setPeople] = useState([]);
-  const [services, setServices] = useState([]);
-  const [serviceOverviews, setServiceOverviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Set variable for data input from contact
@@ -100,17 +114,6 @@ const LandingPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // fetch service data
-        const queryService = '*[_type == "service"] | order(priority asc)';
-        client.fetch(queryService).then((serviceData) => {
-          setServices(serviceData);
-        });
-
-        // fetch service overview data
-        const queryServiceOverview = '*[_type == "service_overview"] | order(priority asc)';
-        client.fetch(queryServiceOverview).then((serviceOverviewData) => {
-          setServiceOverviews(serviceOverviewData);
-        });
 
         // fetch people data
         const queryPeople = '*[_type == "people"] | order(priority asc)';
@@ -266,28 +269,8 @@ const LandingPage = () => {
         )}
     </div>
       <div id="services" className="hero min-h-screen max-w-screen">
-        <AppleCardsCarouselDemo />
+        <ServiceAndOfferingCards />
       </div>
-      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {serviceOverviews.map((serviceOverview: { name: any, description: any, slug: any }, index) => (
-          <div key={index} className="card bg-base-100 shadow-xl">
-            <figure className="px-15 pt-15">
-              <img
-                src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                alt="AI Database"
-                className="rounded-xl"
-              />
-            </figure>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title">{serviceOverview.name}</h2>
-              <p>{serviceOverview.description}</p>
-              <div className="card-actions">
-                <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div> */}
       <div id="team" className="hero min-h-screen">
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
