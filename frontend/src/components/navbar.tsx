@@ -34,7 +34,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-lg dropdown-content bg-base-100 min-h-screen z-[1] mt-3 w-52 shadow"
             >
               <li>
                 <Link to="services" smooth={true} duration={500} offset={-70}>
