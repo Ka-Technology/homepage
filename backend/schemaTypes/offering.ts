@@ -1,8 +1,8 @@
 export default {
-    name: 'service',
-    title: 'Service',
+    name: 'offering',
+    title: 'Offering',
     type: 'document',
-    fields:[
+    fields: [
         {
             name: 'name',
             title: 'Service Name',
@@ -13,6 +13,7 @@ export default {
             name: 'description',
             title: 'Description',
             type: 'string',
+            description: 'Description of Offerings',
         },
         {
             name: 'image',
@@ -24,6 +25,12 @@ export default {
             title: 'Priority',
             type: 'number',
             description: 'Priority of the services'
+        },
+        {
+            name: 'category',
+            title: 'Category',
+            type: 'string',
+            description: 'Assoication between Services',
         },
     ]
 }
