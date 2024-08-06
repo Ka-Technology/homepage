@@ -1,246 +1,325 @@
-import React, { useEffect } from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { client, urlFor } from '../client';
+import emailjs from "@emailjs/browser";
+import { Carousel, Card } from "../components/ui/apple-cards-carousel";
+import { FaChevronDown } from "react-icons/fa6";
+import { Link } from "react-scroll";
 
-const LandingPage = () => {
-  const images = [
-    'https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop',
-    'https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg',
-    'https://indieground.net/wp-content/uploads/2023/03/Freebie-GradientTextures-Preview-02.jpg',
-  ];
-
-  const sections = [
-    {
-      title: 'AI Database',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      title: 'AI Analytics',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      title: 'AI Support',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-  ];
-
-  const handleScroll = () => {
-    const sections = document.querySelectorAll('.scroll-section') as NodeListOf<HTMLElement>;
-    const stickyImage = document.getElementById('sticky-image') as HTMLImageElement;
-    const scrollY = window.scrollY;
-    const threshold = window.innerHeight / 2;
-
-    sections.forEach((section, index) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-
-      if (scrollY >= sectionTop - threshold && scrollY < sectionTop + sectionHeight - threshold) {
-        if (stickyImage) {
-          if (stickyImage.dataset.src !== images[index]) {
-            stickyImage.style.opacity = '0';
-            setTimeout(() => {
-              stickyImage.src = images[index];
-              stickyImage.dataset.src = images[index];
-              stickyImage.style.opacity = '1'; 
-            }, 150);
-          }
-        }
-      }
-    });
-  };
+export function ServiceAndOfferingCards() {
+  const [services, setServices] = useState([]); // State to store service data
+  const [loading, setLoading] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
+    const fetchServicesAndOfferings = async () => {
+      try {
+        // Fetch service data
+        const queryService = '*[_type == "service"] | order(priority asc)';
+        const serviceData = await client.fetch(queryService);
+
+        // For each service, fetch its offerings
+        const promises = serviceData.map(async (service: any) => {
+          const queryOffering = `*[_type == "offering" && category == "${service.name}"] | order(priority asc)`;
+          const offeringData = await client.fetch(queryOffering);
+          console.log(offeringData);
+
+          return {
+            category: "",
+            title: service.name,
+            src: urlFor(service.image).url(),
+            content: (
+              <>
+                <p className="service-description text-neutral-100 pb-4">{service.description}</p>
+                {offeringData.map((offering: any, index: any) => (
+                  <div
+                    key={`offering-content-${index}`}
+                    className="bg-[#F5F5F7] p-8 md:p-14 rounded-3xl mb-4"
+                  >
+                    <p className="text-neutral-600 text-base md:text-2xl font-sans mx-auto">
+                      <span className="font-bold text-neutral-700">
+                        {offering.name}
+                      </span>
+                    </p>
+                    <p className="py-4 text-neutral-600">{offering.description}</p>
+                    <img
+                      src={urlFor(offering.image).url()}
+                      alt="Image"
+                      height="500"
+                      width="500"
+                      className="md:w-1/2 md:h-1/2 h-full w-full mx-auto rounded-xl object-contain"
+                    />
+                  </div>
+                ))}
+              </>
+            ),
+          };
+        });
+
+        const results: any = await Promise.all(promises);
+        setServices(results);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching services and offerings", error);
+        setLoading(false);
+      }
     };
+
+    fetchServicesAndOfferings();
   }, []);
 
+  // Create cards from fetched services
+  const cards = services.map((card, index) => (
+    <Card key={card.src} card={card} index={index} />
+  ));
+
+  if (loading) {
+    return <div>Loading services...</div>; // Show loading state while fetching
+  }
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="hero min-h-screen">
+    <div className="w-full h-full py-20">
+      <h2 className="text-center mx-auto text-5xl md:text-5xl font-semibold pb-4">
+        Services
+      </h2>
+      <p className="text-center font-mono italic px-4">
+        People should be given the power of meaningful choices from
+        freedom through automation to reducing risk through information
+        analytics
+      </p>
+      <Carousel items={cards} />
+    </div>
+  );
+}
+
+
+const LandingPage = () => {
+  // Set variables to hold the query
+  const [people, setPeople] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Set variable for data input from contact
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isFormSubmitted, setisFormSubmitted] = useState(false);
+  const [loadingSubmit, setloadingSubmit] = useState(false);
+
+  // Structure the formData
+  const { name, email, message } = formData;
+
+  // Set reference for animation
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // client connection
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+
+        // fetch people data
+        const queryPeople = '*[_type == "people"] | order(priority asc)';
+        client.fetch(queryPeople).then((peopleData) => {
+          setPeople(peopleData);
+        });
+
+        // loading complete
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // This is for the fancy animations you see on the Teams section
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    };
+
+    const callback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    };
+
+    observerRef.current = new IntersectionObserver(callback, options);
+    const teamBlocks = document.querySelectorAll('.teamblock');
+    teamBlocks.forEach((block) => {
+      observerRef.current?.observe(block);
+    });
+
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, [people]);
+
+  // handle key input for message sent
+  const handleChangeInput = (e: any) => {
+    const { name, value } = e.target;
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Dealing handle submit for contact
+  const handleSubmit = () => {
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      alert('Warning: All fields must be filled out.');
+      return;
+    }
+
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Check if email is valid
+    if (!emailRegex.test(email)) {
+      alert('Warning: Please enter a valid email address.');
+      return;
+    }
+
+    setloadingSubmit(true);
+
+    const contact = {
+      _type: 'contact',
+      name: name,
+      email: email,
+      message: message,
+    };
+
+    client
+      .create(contact)
+      .then(() => {
+        setloadingSubmit(false);
+        setisFormSubmitted(true);
+      })
+      .catch((error) => {
+        setloadingSubmit(false);
+        console.error('Error submitting form:', error);
+      });
+
+    emailjs.init(import.meta.env.VITE_EMAIL_USER_ID);
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAIL_SERVICE_ID,
+        import.meta.env.VITE_EMAIL_TEMPLATE_ID,
+        {
+          name: name,
+          email: email,
+          message: message,
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const [showChevron, setShowChevron] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowChevron(window.scrollY < 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
+  if (loading) {
+    return (
+      <div className="flex w-52 flex-col gap-4">
+        <div className="skeleton h-32 w-full"></div>
+        <div className="skeleton h-4 w-28"></div>
+        <div className="skeleton h-4 w-full"></div>
+        <div className="skeleton h-4 w-full"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
+      <div className="hero min-h-screen flex flex-col justify-center items-center">
         <div className="text-center hero-content">
           <div className="max-w-lg">
             <h1 className="mb-5 text-5xl font-bold">
-              <span className="text-8xl font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="text-7xl  md:text-8xl  font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
                 Ka Technology
               </span>
             </h1>
-            <p className="mb-5">The next generation of AI powered technology.</p>
+            <p className="mb-5">The next generation of AI powered technology</p>
             <div className="flex justify-center">
-              <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
-                Coming Soon!
-              </a>
+              <Link to="services" smooth={true} duration={500}>
+                <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
+                  Get Started!
+                </a>
+              </Link>
             </div>
           </div>
         </div>
+        {/* <div className="scrolling-text-container">
+          <div className="scrolling-text font-semibold text-2xl">
+              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开
+              ka क க క ಕ ക ক ક ક ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ક ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ક ک ꯀ ᱠᱚ 카 កា 开 
+          </div>
+        </div> */}
+        {showChevron && (
+          <div className="absolute bottom-10 flex justify-center w-full">
+            <FaChevronDown className="animate-bounce text-4xl" />
+          </div>
+        )}
       </div>
-      <div id="services" className="hero min-h-screen">
+      <div id="services" className="min-h-screen">
+        <ServiceAndOfferingCards />
+      </div>
+      <div id="team" className="hero min-h-screen overflow-x-hidden">
         <div className="text-center hero-content">
-          <div className="max-w-5xl mx-auto px-4">
+          <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
-              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent"> 
-                Services
+              <span className="font-bold font-serif tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+                The Dream Team
               </span>
             </h1>
-            <p className="mb-5">
-              Offering the future of your business today.
-            </p>
-
-            <div className="flex">
-              <div className="w-1/2 h-screen sticky top-0 flex items-center justify-center">
-                <img id="sticky-image" src={images[0]} data-src={images[0]} alt="Sticky" className="rounded-xl max-w-full max-h-full object-contain transition-opacity duration-300" />
-              </div>
-              <div className="w-1/2 flex flex-col justify-center">
-                {sections.map((section, index) => (
-                  <div key={index} className="scroll-section min-h-screen p-8 flex items-center">
-                    <div>
-                      <h2 className="text-4xl font-bold mb-4">{section.title}</h2>
-                      <p className="text-lg ">{section.content}</p>
+            <p className="mb-5 text-lg italic font-serif">The people that made this all possible!</p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {people.map((person: { name: any; role: any; image: any; link: any }, index) => (
+                <div key={index} className="rounded-xl bg-base-100 shadow-xl teamblock">
+                  <figure>
+                    <img
+                      src={urlFor(person.image).url()}
+                      alt="Team Member Images"
+                      className="rounded-t-xl object-cover"
+                    />
+                  </figure>
+                  <div className="card-body items-center text-center">
+                    <h2 className="font-serif font-bold card-title">{person.name}</h2>
+                    <p className="role italic">{person.role}</p>
+                    <div className="card-actions">
+                      <a href={person.link}>
+                        <button className="btn btn-primary">LinkedIn</button>
+                      </a>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>  
-            
-
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="card bg-base-100 shadow-xl">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Database"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Database</h2>
-                  <p>Automate your business with the AI Database</p>
-                  <div className="card-actions">
-                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
-                  </div>
                 </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Analytics"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Analytics</h2>
-                  <p>Gain insights with AI-powered analytics</p>
-                  <div className="card-actions">
-                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Support"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">AI Support</h2>
-                  <p>24/7 AI-powered customer support</p>
-                  <div className="card-actions">
-                    <button className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">See Rates</button>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-
-      <div id="team" className="hero min-h-screen">
+      <div id="contact" className="hero min-h-screen overflow-x-hidden">
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
-              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent"> 
-                Meet The Team
-              </span>
-            </h1>
-            <p className="mb-5">
-              The people that made this all possible!
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="card bg-base-100 shadow-xl teamblock">
-                <figure className="px-45 pt-25">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Database"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">Santosh</h2>
-                  <p>Co-Founder and President of Ka Group</p>
-                  <div className="card-actions">
-                    <button className="btn btn-primary">LinkedIn</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl teamblock">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Analytics"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">Ken</h2>
-                  <p>Co-Founder and Web Developer</p>
-                  <div className="card-actions">
-                    <button className="btn btn-primary">LinkedIn</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl teamblock">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Support"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">Peter</h2>
-                  <p>Co-Founder and Software Engineer</p>
-                  <div className="card-actions">
-                    <button className="btn btn-primary">LinkedIn</button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-base-100 shadow-xl teamblock">
-                <figure className="px-15 pt-15">
-                  <img
-                    src="https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop"
-                    alt="AI Support"
-                    className="rounded-xl" />
-                </figure>
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">Andrew</h2>
-                  <p>Co-Founder and Web Developer</p>
-                  <div className="card-actions">
-                    <button className="btn btn-primary">LinkedIn</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="contact" className="hero min-h-screen">
-        <div className="text-center hero-content">
-          <div className="max-w-max mx-auto px-4">
-            <h1 className="mb-5 text-5xl font-bold">
-              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent"> 
+              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
                 Contact Us
               </span>
             </h1>
@@ -249,10 +328,23 @@ const LandingPage = () => {
               <span className="font-semibold"> info@ka-tch.com
               </span>
             </p>
+            {!isFormSubmitted ? (
+              <div>
+                <label className="form-control w-full max-w-xs">
+                  <input type="text" placeholder="Full Name" name="name" value={name} onChange={handleChangeInput} className="input input-bordered w-full max-w-xs" />
+                  <input type="text" placeholder="Email" name="email" value={email} onChange={handleChangeInput} className="input input-bordered w-full max-w-xs mt-3" />
+                  <textarea className="textarea textarea-bordered mt-3" placeholder="Message" name="message" value={message} onChange={handleChangeInput}></textarea>
+                </label>
+                <button className="btn w-full max-w-xs mt-3 bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600" onClick={handleSubmit}>{loadingSubmit ? 'Sending' : 'Send Message'}</button>
+              </div>
+            ) : (
+              <div>
+                <h3>Thank you for contacting us! We will respond as soon as possible!</h3>
+              </div>
+            )}
           </div>
         </div>
       </div>
-
       <footer className="footer footer-center bg-base-300 text-base-content p-4">
         <aside>
           <p>Copyright © {new Date().getFullYear()} - All right reserved by Ka Technologies</p>
@@ -260,6 +352,6 @@ const LandingPage = () => {
       </footer>
     </div>
   );
-}
+};
 
 export default LandingPage;
