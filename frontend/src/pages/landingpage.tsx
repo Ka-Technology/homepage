@@ -1,15 +1,22 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { client, urlFor } from '../client';
 import emailjs from "@emailjs/browser";
 import { Carousel, Card } from "../components/ui/apple-cards-carousel";
 import { FaChevronDown } from "react-icons/fa6";
 import { Link } from "react-scroll";
 
+interface Service {
+  category: string;
+  title: string;
+  src: string;
+  content: JSX.Element;
+}
+
 export function ServiceAndOfferingCards() {
-  const [services, setServices] = useState([]); // State to store service data
+  // Step 2: Annotate the services state with the defined type
+  const [services, setServices] = useState<Service[]>([]); // State to store service data
   const [loading, setLoading] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchServicesAndOfferings = async () => {
@@ -25,13 +32,13 @@ export function ServiceAndOfferingCards() {
           console.log(offeringData);
 
           return {
-            category: "",
+            category: service.category || '', // Assuming category might be a field
             title: service.name,
             src: urlFor(service.image).url(),
             content: (
               <>
                 <p className="service-description text-neutral-100 pb-4">{service.description}</p>
-                {offeringData.map((offering: any, index: any) => (
+                {offeringData.map((offering: any, index: number) => (
                   <div
                     key={`offering-content-${index}`}
                     className="bg-[#F5F5F7] p-8 md:p-14 rounded-3xl mb-4"
@@ -56,7 +63,7 @@ export function ServiceAndOfferingCards() {
           };
         });
 
-        const results: any = await Promise.all(promises);
+        const results: Service[] = await Promise.all(promises);
         setServices(results);
         setLoading(false);
       } catch (error) {
