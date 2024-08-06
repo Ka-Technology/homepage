@@ -41,7 +41,7 @@ export function ServiceAndOfferingCards() {
                         {offering.name}
                       </span>
                     </p>
-                    <p className="py-4">{offering.description}</p>
+                    <p className="py-4 text-neutral-600">{offering.description}</p>
                     <img
                       src={urlFor(offering.image).url()}
                       alt="Image"
