@@ -4,11 +4,12 @@ import { client, urlFor } from '../client';
 import emailjs from "@emailjs/browser";
 import { Carousel, Card } from "../components/ui/apple-cards-carousel";
 import { FaChevronDown } from "react-icons/fa6";
-
+import { Link } from "react-scroll";
 
 export function ServiceAndOfferingCards() {
   const [services, setServices] = useState([]); // State to store service data
   const [loading, setLoading] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchServicesAndOfferings = async () => {
@@ -29,24 +30,24 @@ export function ServiceAndOfferingCards() {
             src: urlFor(service.image).url(),
             content: (
               <>
-                <p className="service-description">{service.description}</p>
+                <p className="service-description text-neutral-100 pb-4">{service.description}</p>
                 {offeringData.map((offering: any, index: any) => (
                   <div
                     key={`offering-content-${index}`}
                     className="bg-[#F5F5F7] p-8 md:p-14 rounded-3xl mb-4"
                   >
-                    <p className="text-neutral-600 text-base md:text-2xl font-sans max-w-3xl mx-auto">
+                    <p className="text-neutral-600 text-base md:text-2xl font-sans mx-auto">
                       <span className="font-bold text-neutral-700">
                         {offering.name}
                       </span>
                     </p>
-                    <p>{offering.description}</p>
+                    <p className="py-4 text-neutral-600">{offering.description}</p>
                     <img
                       src={urlFor(offering.image).url()}
-                      alt="Macbook mockup"
+                      alt="Image"
                       height="500"
                       width="500"
-                      className="md:w-1/2 md:h-1/2 h-full w-full mx-auto object-contain"
+                      className="md:w-1/2 md:h-1/2 h-full w-full mx-auto rounded-xl object-contain"
                     />
                   </div>
                 ))}
@@ -78,15 +79,13 @@ export function ServiceAndOfferingCards() {
 
   return (
     <div className="w-full h-full py-20">
-      <h2 className="text-center mx-auto text-xl md:text-5xl font-bold">
+      <h2 className="text-center mx-auto text-5xl md:text-5xl font-semibold pb-4">
         Services
       </h2>
-      <p>
-        It's our belief at Ka Technology that people should be given the power
-        of meaningful choices. These choices come from technology that provides
-        freedom through automation and reduced risk through information
-        analytics. Here are some of the ways in which we provide you with more
-        choice.
+      <p className="text-center font-mono italic px-4">
+        People should be given the power of meaningful choices from
+        freedom through automation to reducing risk through information
+        analytics
       </p>
       <Carousel items={cards} />
     </div>
@@ -245,41 +244,52 @@ const LandingPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-    <div className="hero min-h-screen flex flex-col justify-center items-center">
-      <div className="text-center hero-content">
-        <div className="max-w-lg">
-          <h1 className="mb-5 text-5xl font-bold">
-            <span className="text-8xl font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
-              Ka Technology
-            </span>
-          </h1>
-          <p className="mb-5">The next generation of AI powered technology.</p>
-          <div className="flex justify-center">
-            <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
-              Coming Soon!
-            </a>
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
+      <div className="hero min-h-screen flex flex-col justify-center items-center">
+        <div className="text-center hero-content">
+          <div className="max-w-lg">
+            <h1 className="mb-5 text-5xl font-bold">
+              <span className="text-7xl  md:text-8xl  font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+                Ka Technology
+              </span>
+            </h1>
+            <p className="mb-5">The next generation of AI powered technology</p>
+            <div className="flex justify-center">
+              <Link to="services" smooth={true} duration={500}>
+                <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
+                  Get Started!
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-      {showChevron && (
+        {/* <div className="scrolling-text-container">
+          <div className="scrolling-text font-semibold text-2xl">
+              ka क க క ಕ ക ক ક କ ਕ ک ꯀ ᱠᱚ 카 កា 开
+              ka क க క ಕ ക ক ક ક ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ਕ ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ક ک ꯀ ᱠᱚ 카 កា 开 
+              ka क க క ಕ ക ক ક ક ક ک ꯀ ᱠᱚ 카 កា 开 
+          </div>
+        </div> */}
+        {showChevron && (
           <div className="absolute bottom-10 flex justify-center w-full">
             <FaChevronDown className="animate-bounce text-4xl" />
           </div>
         )}
-    </div>
-      <div id="services" className="hero min-h-screen max-w-screen">
+      </div>
+      <div id="services" className="min-h-screen">
         <ServiceAndOfferingCards />
       </div>
-      <div id="team" className="hero min-h-screen">
+      <div id="team" className="hero min-h-screen overflow-x-hidden">
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
-              <span className="font-bold tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
-                Meet The Team
+              <span className="font-bold font-serif tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+                The Dream Team
               </span>
             </h1>
-            <p className="mb-5">The people that made this all possible!</p>
+            <p className="mb-5 text-lg italic font-serif">The people that made this all possible!</p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {people.map((person: { name: any; role: any; image: any; link: any }, index) => (
                 <div key={index} className="rounded-xl bg-base-100 shadow-xl teamblock">
@@ -291,8 +301,8 @@ const LandingPage = () => {
                     />
                   </figure>
                   <div className="card-body items-center text-center">
-                    <h2 className="card-title">{person.name}</h2>
-                    <p className="role">{person.role}</p>
+                    <h2 className="font-serif font-bold card-title">{person.name}</h2>
+                    <p className="role italic">{person.role}</p>
                     <div className="card-actions">
                       <a href={person.link}>
                         <button className="btn btn-primary">LinkedIn</button>
@@ -305,7 +315,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div id="contact" className="hero min-h-screen">
+      <div id="contact" className="hero min-h-screen overflow-x-hidden">
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
