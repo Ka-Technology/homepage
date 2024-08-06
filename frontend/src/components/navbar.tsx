@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useTheme from '../utils/useTheme';
 import { Link } from 'react-scroll';
 
@@ -6,7 +6,7 @@ const Navbar = () => {
   const [theme, toggleTheme] = useTheme();
   const [showAlert, setShowAlert] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const handleComingSoonClick = () => {
     setShowAlert(true);
