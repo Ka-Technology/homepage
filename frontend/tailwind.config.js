@@ -13,6 +13,16 @@ module.exports = {
       colors: {
         'katech-red': '#ff3131',
       },
+      animation: {
+        move: "move 5s linear infinite",
+        'spin-slow': 'spin 100s linear infinite',
+      },
+      keyframes: {
+        move: {
+          "0%": { transform: "translateX(-200px)" },
+          "100%": { transform: "translateX(200px)" },
+        },
+      },
     },
   },
   plugins: [
