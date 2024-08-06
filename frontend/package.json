@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d build" 
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -19,6 +20,7 @@
     "autoprefixer": "^10.4.19",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.19",
+    "gh-pages": "^6.1.1",
     "next": "^14.2.5",
     "postcss": "^8.4.39",
     "react": "^18.3.1",
