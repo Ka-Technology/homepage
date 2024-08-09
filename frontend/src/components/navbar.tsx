@@ -4,7 +4,7 @@ import { Link } from 'react-scroll';
 
 const Navbar = () => {
   const [theme, toggleTheme] = useTheme();
-  const [showAlert, setShowAlert] = useState(false);
+  // const [showAlert, setShowAlert] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -220,7 +220,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {showAlert && (
+      {/* {showAlert && (
         <div role="alert" className="alert alert-info fixed bottom-4 right-4 max-w-xs z-50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +237,7 @@ const Navbar = () => {
           </svg>
           <span>We are not ready yet but we will be soon!</span>
         </div>
-      )}
+      )} */}
     </>
   );
 };
