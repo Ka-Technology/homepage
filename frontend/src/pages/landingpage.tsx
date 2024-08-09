@@ -86,10 +86,10 @@ export function ServiceAndOfferingCards() {
 
   return (
     <div className="w-full h-full py-20">
-      <h2 className="text-center mx-auto text-5xl md:text-5xl font-semibold pb-4 font-bold  tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+      <h2 className="text-center mx-auto text-5xl md:text-5xl font-semibold pb-4">
         Services
       </h2>
-      <p className="text-center text-lg">
+      <p className="text-center font-mono italic px-4">
         People should be given the power of meaningful choices from
         freedom through automation to reducing risk through information
         analytics
@@ -292,12 +292,12 @@ const LandingPage = () => {
         <div className="text-center hero-content">
           <div className="max-w-max mx-auto px-4">
             <h1 className="mb-5 text-5xl font-bold">
-              <span className="font-bold  tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="font-bold font-serif tracking-tight text-left animate-gradient bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
                 The Dream Team
               </span>
             </h1>
-            <p className="mb-5 text-lg">The people that made this all possible!</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <p className="mb-5 text-lg italic font-serif">The people that made this all possible!</p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {people.map((person: { name: any; role: any; image: any; link: any }, index) => (
                 <div key={index} className="rounded-xl bg-base-100 shadow-xl teamblock">
                   <figure>
@@ -312,7 +312,7 @@ const LandingPage = () => {
                     <p className="role italic">{person.role}</p>
                     <div className="card-actions">
                       <a href={person.link}>
-                        <button className="btn btn-primary bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">LinkedIn</button>
+                        <button className="btn btn-primary">LinkedIn</button>
                       </a>
                     </div>
                   </div>
