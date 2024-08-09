@@ -8,10 +8,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  const handleComingSoonClick = () => {
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
-  };
+  // const handleComingSoonClick = () => {
+  //   setShowAlert(true);
+  //   setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
+  // };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
