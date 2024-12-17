@@ -81,7 +81,7 @@ export function ServiceAndOfferingCards() {
   ));
 
   if (loading) {
-    return <div>Loading services...</div>; // Show loading state while fetching
+    return <div>Loading services...</div>;
   }
 
   return (
@@ -260,7 +260,7 @@ const LandingPage = () => {
                 Ka Technology
               </span>
             </h1>
-            <p className="mb-5">The next generation of AI powered technology</p>
+            <p className="mb-5">Making Technology Simpler</p>
             <div className="flex justify-center">
               <Link to="services" smooth={true} duration={500}>
                 <a href="#" className="btn bg-katech-red border-katech-red text-white hover:bg-red-600 hover:border-red-600">
@@ -354,7 +354,7 @@ const LandingPage = () => {
       </div>
       <footer className="footer footer-center bg-base-300 text-base-content p-4">
         <aside>
-          <p>Copyright © {new Date().getFullYear()} - All right reserved by Ka Technologies</p>
+          <p>Copyright © {new Date().getFullYear()} - All right reserved by Ka Technologies LLC.</p>
         </aside>
       </footer>
     </div>
